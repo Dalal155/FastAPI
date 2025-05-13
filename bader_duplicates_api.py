@@ -112,6 +112,7 @@ async def register_initiative(initiative: Initiative):
         # Check for duplicates
         duplicate_indices, similarity_scores = check_for_duplicates(initiative)
 
+        # If duplicates are found, raise an exception
         if duplicate_indices:
             duplicates = [
                 {
@@ -128,7 +129,6 @@ async def register_initiative(initiative: Initiative):
             )
 
         # Instead of adding to Firebase, just simulate success
-        # (Optional: you could log or do other processing here)
         return {"message": "✅ مبادرة تم التحقق منها بنجاح!"}
 
     except HTTPException as e:
@@ -136,7 +136,6 @@ async def register_initiative(initiative: Initiative):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=400, detail=str(e))
-
 # Root endpoint
 @app.get("/")
 def root():
